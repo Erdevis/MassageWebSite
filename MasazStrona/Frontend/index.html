@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gabinet masażu - usługi masażysty w [Nazwa Miasta]">
+    <title>Masażysta [Twoje Imię i Nazwisko]</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Masażysta [Twoje Imię i Nazwisko]</h1>
+        <p>Profesjonalny masaż w [Nazwa Miasta]</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#home">Strona Główna</a></li>
+            <li><a href="#about">O Mnie</a></li>
+            <li><a href="#services">Usługi</a></li>
+            <li><a href="#gallery">Galeria</a></li>
+            <li><a href="#contact">Kontakt</a></li>
+            <li><a href="#blog">Blog</a></li>
+            <li><a href="#testimonials">Opinie</a></li>
+        </ul>
+    </nav>
+<main>
+    <section id="home">
+        <h2>Witamy w Gabinecie Masażu</h2>
+        <img src="gabinet.jpg" alt="Zdjęcie gabinetu">
+        <p>Nasza filozofia to ...</p>
+    </section>
+
+    <section id="about">
+        <h2>O Mnie</h2>
+        <p>Nazywam się [Twoje Imię i Nazwisko]...</p>
+        <img src="certyfikat.jpg" alt="Zdjęcie certyfikatu">
+    </section>
+
+    <section id="services">
+        <h2>Usługi</h2>
+        <ul>
+            <li>Masaż klasyczny - 100 zł/60 min</li>
+            <li>Masaż relaksacyjny - 120 zł/60 min</li>
+            <li>Masaż leczniczy - 150 zł/60 min</li>
+        </ul>
+    </section>
+
+    <section id="gallery">
+        <h2>Galeria</h2>
+        <img src="gabinet1.jpg" alt="Zdjęcie gabinetu">
+        <img src="gabinet2.jpg" alt="Zdjęcie gabinetu">
+    </section>
+
+    <section id="contact">
+        <h2>Kontakt</h2>
+        <p>Adres: [Twój Adres]</p>
+        <p>Telefon: [Twój Numer Telefonu]</p>
+        <p>Email: [Twój Email]</p>
+        <p>Godziny otwarcia: Pon-Pt 9:00-18:00</p>
+    </section>
+
+   <section id="blog">
+        <h2>Blog</h2>
+        <article>
+            <h3>Tytuł wpisu</h3>
+            <p>Treść wpisu...</p>
+        </article>
+    </section>
+
+
+    <section id="testimonials">
+        <h2>Opinie Klientów</h2>
+        <div id="testimonials-container">
+            <p>Świetny masaż! - Klient 1</p>
+            <p>Bardzo relaksująca atmosfera. - Klient 2</p>
+        </div>
+    </section>
+</main>
+
+    <footer>
+        <p>&copy; 2024 Masażysta [Twoje Imię i Nazwisko]. Wszelkie prawa zastrzeżone.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        const handleNewPostForm = () => {
+            const adminForm = document.getElementById('new-post-form');
+    
+            if (adminForm) {
+                adminForm.addEventListener('submit', async (event) => {
+                    event.preventDefault();
+    
+                    const title = adminForm.querySelector('#post-title').value;
+                    const content = adminForm.querySelector('#post-content').value;
+    
+                    try {
+                        const response = await fetch('http://localhost:3000/api/add-post', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ title, content }),
+                        });
+    
+                        if (!response.ok) {
+                            throw new Error('Wystąpił problem podczas dodawania wpisu');
+                        }
+    
+                        alert('Wpis dodany pomyślnie');
+                        adminForm.reset();
+                    } catch (error) {
+                        console.error('Błąd podczas dodawania wpisu:', error.message);
+                    }
+                });
+            }
+        };
+    
+        handleNewPostForm();
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,68 @@
+Gdzie dodać ten section blog:
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administratora</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Panel Administratora</h1>
+    </header>
+
+    <main>
+        <section id="add-post">
+            <h2>Dodaj nowy wpis na blogu</h2>
+            <form id="new-post-form">
+                <label for="post-title">Tytuł:</label>
+                <input type="text" id="post-title" name="title" required>
+                <label for="post-content">Treść:</label>
+                <textarea id="post-content" name="content" required></textarea>
+                <button type="submit">Dodaj wpis</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Masażysta [Twoje Imię i Nazwisko]. Wszelkie prawa zastrzeżone.</p>
+    </footer>
+
+    <script>
+        const handleNewPostForm = () => {
+            const adminForm = document.getElementById('new-post-form');
+
+            if (adminForm) {
+                adminForm.addEventListener('submit', async (event) => {
+                    event.preventDefault();
+
+                    const title = adminForm.querySelector('#post-title').value;
+                    const content = adminForm.querySelector('#post-content').value;
+
+                    try {
+                        const response = await fetch('http://localhost:3000/api/add-post', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ title, content }),
+                        });
+
+                        if (!response.ok) {
+                            throw new Error('Wystąpił problem podczas dodawania wpisu');
+                        }
+
+                        alert('Wpis dodany pomyślnie');
+                        adminForm.reset();
+                    } catch (error) {
+                        console.error('Błąd podczas dodawania wpisu:', error.message);
+                    }
+                });
+            }
+        };
+
+        handleNewPostForm();
+    </script>
+</body>
+</html>
